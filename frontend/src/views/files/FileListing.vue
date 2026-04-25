@@ -1,14 +1,7 @@
 <template>
   <div>
-    <header-bar showMenu showLogo>
+    <header-bar showLogo>
       <search />
-      <title />
-      <action
-        class="search-button"
-        icon="search"
-        :label="t('buttons.search')"
-        @action="openSearch()"
-      />
 
       <template #actions>
         <template v-if="!isMobile">
@@ -47,12 +40,7 @@
           />
         </template>
 
-        <action
-          v-if="headerButtons.shell"
-          icon="code"
-          :label="t('buttons.shell')"
-          @action="layoutStore.toggleShell"
-        />
+
         <action
           :icon="viewIcon"
           :label="t('buttons.switchView')"
@@ -62,6 +50,7 @@
           v-if="headerButtons.download"
           icon="file_download"
           :label="t('buttons.download')"
+          showLabel
           @action="download"
           :counter="fileStore.selectedCount"
         />
@@ -70,13 +59,19 @@
           icon="file_upload"
           id="upload-button"
           :label="t('buttons.upload')"
+          showLabel
           @action="uploadFunc"
         />
-        <action icon="info" :label="t('buttons.info')" show="info" />
         <action
-          icon="check_circle"
+          :icon="fileStore.multiple ? 'library_add_check' : 'library_add'"
+          :class="{ active: fileStore.multiple }"
           :label="t('buttons.selectMultiple')"
           @action="toggleMultipleSelection"
+        />
+        <action
+          :icon="currentThemeIcon"
+          :label="t('buttons.toggleTheme')"
+          @action="themeToggle"
         />
       </template>
     </header-bar>
@@ -168,7 +163,7 @@
         :class="authStore.user?.viewMode ?? ''"
         @click="handleEmptyAreaClick"
       >
-        <div>
+        <div v-if="authStore.user?.viewMode !== 'mosaic'">
           <div class="item header">
             <div>
               <p
@@ -320,20 +315,6 @@
           webkitdirectory
           multiple
         />
-
-        <div :class="{ active: fileStore.multiple }" id="multiple-selection">
-          <p>{{ t("files.multipleSelectionEnabled") }}</p>
-          <div
-            @click="() => (fileStore.multiple = false)"
-            tabindex="0"
-            role="button"
-            :title="t('buttons.clear')"
-            :aria-label="t('buttons.clear')"
-            class="action"
-          >
-            <i class="material-icons">clear</i>
-          </div>
-        </div>
       </div>
     </template>
   </div>
@@ -369,6 +350,7 @@ import {
 import { useRoute, onBeforeRouteUpdate } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { storeToRefs } from "pinia";
+import { toggleTheme, getTheme } from "@/utils/theme";
 import { removePrefix } from "@/api/utils";
 
 const showLimit = ref<number>(50);
@@ -461,6 +443,14 @@ const modifiedIcon = computed(() => {
 
   return "arrow_upward";
 });
+
+const currentThemeIcon = computed(() => {
+  return getTheme() === "dark" ? "light_mode" : "dark_mode";
+});
+
+const themeToggle = () => {
+  toggleTheme();
+};
 
 const viewIcon = computed(() => {
   const icons = {
@@ -1090,8 +1080,8 @@ const showContextMenu = (event: MouseEvent) => {
   event.preventDefault();
   isContextMenuVisible.value = true;
   contextMenuPos.value = {
-    x: event.clientX + 8,
-    y: event.clientY + Math.floor(window.scrollY),
+    x: event.clientX,
+    y: event.clientY,
   };
 };
 

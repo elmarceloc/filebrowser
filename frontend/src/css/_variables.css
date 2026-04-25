@@ -1,58 +1,66 @@
 :root {
-  --blue: #2196f3;
-  --dark-blue: #1e88e5;
-  --red: #f44336;
-  --dark-red: #d32f2f;
-  --moon-grey: #f2f2f2;
+  --blue: #1a73e8;
+  --dark-blue: #174ea6;
+  --red: #d93025;
+  --dark-red: #a50e0e;
+  --moon-grey: #f1f3f4;
 
-  --icon-red: #da4453;
-  --icon-orange: #f47750;
-  --icon-yellow: #fdbc4b;
-  --icon-green: #2ecc71;
-  --icon-blue: #1d99f3;
-  --icon-violet: #9b59b6;
+  --icon-red: #ea4335;
+  --icon-orange: #fbbc04;
+  --icon-yellow: #fbbc04;
+  --icon-green: #34a853;
+  --icon-blue: #4285f4;
+  --icon-violet: #a142f4;
 
-  --input-red: rgb(252, 208, 205);
-  --input-green: rgb(201, 242, 218);
+  --input-red: #fce8e6;
+  --input-green: #e6f4ea;
 
-  --item-selected: white;
+  --item-selected: #e8f0fe;
 
-  --action: rgb(84, 110, 122);
+  --action: #5f6368;
 
-  --background: rgb(250, 250, 250);
-  --surfacePrimary: rgb(255, 255, 255);
-  --surfaceSecondary: rgb(230, 230, 230);
-  --divider: rgba(0, 0, 0, 0.05);
-  --iconPrimary: var(--icon-blue);
-  --iconSecondary: rgb(255, 255, 255);
-  --iconTertiary: rgb(204, 204, 204);
-  --textPrimary: rgb(111, 111, 111);
-  --textSecondary: rgb(51, 51, 51);
-  --hover: rgba(0, 0, 0, 0.1);
-  --borderPrimary: rgba(0, 0, 0, 0.1);
-  --borderSecondary: rgba(0, 0, 0, 0.2);
-  --dividerPrimary: rgba(255, 255, 255, 0.4);
-  --dividerSecondary: rgba(255, 255, 255, 0.9);
+  --background: #f7f9fc;
+  --surfacePrimary: #ffffff;
+  --surfaceSecondary: #f1f3f4;
+  --divider: #dadce0;
+  --iconPrimary: #5f6368;
+  --iconSecondary: #ffffff;
+  --iconTertiary: #9aa0a6;
+  --textPrimary: #5f6368;
+  --textSecondary: #202124;
+  --hover: #f1f3f4;
+  --borderPrimary: #dadce0;
+  --borderSecondary: #bdc1c6;
+  --dividerPrimary: #e8eaed;
+  --dividerSecondary: #f1f3f4;
+
+  /* Google Drive specific tokens */
+  --sidebar-width: 256px;
+  --header-height: 64px;
+  --border-radius-large: 24px;
+  --border-radius-medium: 16px;
+  --border-radius-small: 8px;
 }
 
 :root.dark {
-  --input-red: rgb(115, 48, 45);
-  --input-green: rgb(20, 122, 65);
+  --input-red: #442726;
+  --input-green: #0d3c26;
 
-  --action: rgb(255, 255, 255);
+  --action: #e8eaed;
 
-  --background: rgb(20, 29, 36);
-  --surfacePrimary: rgb(32, 41, 47);
-  --surfaceSecondary: rgb(58, 65, 71);
-  --textPrimary: rgba(255, 255, 255, 0.6);
-  --textSecondary: rgba(255, 255, 255, 0.87);
-  --divider: rgba(255, 255, 255, 0.12);
-  --iconPrimary: rgb(255, 255, 255);
-  --iconSecondary: rgb(255, 255, 255);
-  --iconTertiary: rgb(255, 255, 255);
-  --hover: rgba(255, 255, 255, 0.1);
-  --borderPrimary: rgba(255, 255, 255, 0.05);
-  --borderSecondary: rgba(255, 255, 255, 0.15);
-  --dividerPrimary: rgba(30, 30, 30, 0.4);
-  --dividerSecondary: rgba(30, 30, 30, 0.6);
+  --background: #131314;
+  --surfacePrimary: #1e1f20;
+  --surfaceSecondary: #28292a;
+  --textPrimary: #9aa0a6;
+  --textSecondary: #e8eaed;
+  --divider: #3c4043;
+  --iconPrimary: #e8eaed;
+  --iconSecondary: #131314;
+  --iconTertiary: #9aa0a6;
+  --hover: #2d2e30;
+  --borderPrimary: #3c4043;
+  --borderSecondary: #5f6368;
+  --dividerPrimary: #28292a;
+  --dividerSecondary: #3c4043;
+  --item-selected: rgba(26, 115, 232, 0.15);
 }

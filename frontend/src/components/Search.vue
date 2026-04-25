@@ -249,3 +249,125 @@ const submit = async (event: Event) => {
   ongoing.value = false;
 };
 </script>
+<style scoped>
+#search {
+  max-width: 720px;
+  width: 100%;
+  position: relative;
+}
+
+#input {
+  background: var(--surfaceSecondary);
+  border-radius: 8px;
+  height: 48px;
+  padding: 0 16px;
+  display: flex !important;
+  align-items: center;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+#search.active #input {
+  background: var(--surfacePrimary);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+  border-radius: 8px 8px 0 0;
+}
+
+#input i {
+  color: var(--textPrimary);
+}
+
+#input input {
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  height: 100%;
+  padding-left: 12px;
+  color: var(--textSecondary);
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+#result {
+  background: var(--surfacePrimary);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.28);
+  border-radius: 0 0 8px 8px;
+  z-index: 10000;
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  display: none;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+#search.active #result {
+  display: block;
+}
+
+#result p {
+  padding: 16px;
+  margin: 0;
+  color: var(--textPrimary);
+}
+
+.boxes {
+  padding: 16px;
+}
+
+.boxes h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: var(--textPrimary);
+}
+
+.boxes > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.boxes > div > div {
+  background: var(--surfaceSecondary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--textSecondary);
+  font-size: 13px;
+}
+
+.boxes > div > div:hover {
+  background: var(--hover);
+}
+
+.boxes i {
+  font-size: 18px;
+  color: var(--blue);
+}
+
+#result ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#result ul li a {
+  padding: 10px 24px;
+  color: var(--textSecondary);
+  display: flex !important;
+  align-items: center;
+  font-size: 14px;
+}
+
+#result ul li a:hover {
+  background-color: var(--hover);
+}
+
+#result ul li a i {
+  margin-right: 12px;
+  color: var(--textPrimary);
+}
+</style>

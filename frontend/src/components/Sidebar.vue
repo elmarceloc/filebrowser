@@ -2,62 +2,45 @@
   <div v-show="active" @click="closeHovers" class="overlay"></div>
   <nav :class="{ active }">
     <template v-if="isLoggedIn">
-      <button @click="toAccountSettings" class="action">
-        <i class="material-icons">person</i>
-        <span>{{ user.username }}</span>
-      </button>
+      <div class="new-button-container" v-if="user.perm.create">
+        <button @click="showHover('newDir')" class="action new-button">
+          <i class="material-icons">add</i>
+          <span>Crear carpeta</span>
+        </button>
+      </div>
+
       <button
-        class="action"
+        class="action nav-item"
+        :class="{ active: $route.path === '/files/' || $route.path === '/files' }"
         @click="toRoot"
-        :aria-label="$t('sidebar.myFiles')"
-        :title="$t('sidebar.myFiles')"
       >
         <i class="material-icons">folder</i>
         <span>{{ $t("sidebar.myFiles") }}</span>
       </button>
 
-      <div v-if="user.perm.create">
-        <button
-          @click="showHover('newDir')"
-          class="action"
-          :aria-label="$t('sidebar.newFolder')"
-          :title="$t('sidebar.newFolder')"
-        >
-          <i class="material-icons">create_new_folder</i>
-          <span>{{ $t("sidebar.newFolder") }}</span>
-        </button>
-
-        <button
-          @click="showHover('newFile')"
-          class="action"
-          :aria-label="$t('sidebar.newFile')"
-          :title="$t('sidebar.newFile')"
-        >
-          <i class="material-icons">note_add</i>
-          <span>{{ $t("sidebar.newFile") }}</span>
-        </button>
-      </div>
-
       <div v-if="user.perm.admin">
         <button
-          class="action"
+          class="action nav-item"
+          :class="{ active: $route.path.startsWith('/settings') }"
           @click="toGlobalSettings"
-          :aria-label="$t('sidebar.settings')"
-          :title="$t('sidebar.settings')"
         >
-          <i class="material-icons">settings_applications</i>
+          <i class="material-icons">settings</i>
           <span>{{ $t("sidebar.settings") }}</span>
         </button>
       </div>
+
+      <button @click="toAccountSettings" class="action nav-item">
+        <i class="material-icons">account_circle</i>
+        <span>{{ user.username }}</span>
+      </button>
+
       <button
         v-if="canLogout"
         @click="logout"
-        class="action"
+        class="action nav-item"
         id="logout"
-        :aria-label="$t('sidebar.logout')"
-        :title="$t('sidebar.logout')"
       >
-        <i class="material-icons">exit_to_app</i>
+        <i class="material-icons">logout</i>
         <span>{{ $t("sidebar.logout") }}</span>
       </button>
     </template>
@@ -220,3 +203,80 @@ export default {
   },
 };
 </script>
+<style scoped>
+nav {
+  padding: 8px !important;
+}
+
+.new-button-container {
+  padding: 8px 0px 16px 8px;
+}
+
+.new-button {
+  background: var(--surfacePrimary) !important;
+  color: var(--textSecondary) !important;
+  border-radius: 16px !important;
+  padding: 12px 24px 12px 16px !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+    0 1px 3px 1px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  align-items: center !important;
+  width: auto !important;
+  transition: box-shadow 0.2s, background-color 0.2s !important;
+  border: 1px solid var(--divider) !important;
+}
+
+.new-button:hover {
+  background-color: var(--hover) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3),
+    0 4px 8px 3px rgba(0, 0, 0, 0.15) !important;
+}
+
+.new-button i {
+  font-size: 32px;
+  margin-right: 12px;
+}
+
+.new-button span {
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.25px;
+}
+
+.nav-item {
+  margin: 0 !important;
+  border-radius: 0 24px 24px 0 !important;
+  padding: 0 12px 0 24px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  width: calc(100% - 8px) !important;
+  color: var(--textPrimary) !important;
+  font-size: 14px !important;
+}
+
+.nav-item i {
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.nav-item:hover {
+  background-color: var(--hover) !important;
+}
+
+.nav-item.active {
+  background-color: var(--item-selected) !important;
+  color: var(--blue) !important;
+}
+
+.nav-item.active i {
+  color: var(--blue) !important;
+}
+
+.credits {
+  margin-top: auto !important;
+  padding: 16px !important;
+  font-size: 12px !important;
+}
+</style>

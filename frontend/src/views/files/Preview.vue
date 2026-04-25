@@ -104,6 +104,10 @@
           </div>
         </div>
         <CsvViewer v-else-if="isCsv" :content="csvContent" :error="csvError" />
+        <PsdViewer
+          v-else-if="isPsd"
+          :src="previewUrl"
+        />
         <ExtendedImage
           v-else-if="fileStore.req?.type == 'image'"
           :src="previewUrl"
@@ -194,6 +198,7 @@ import Action from "@/components/header/Action.vue";
 import ExtendedImage from "@/components/files/ExtendedImage.vue";
 import VideoPlayer from "@/components/files/VideoPlayer.vue";
 import CsvViewer from "@/components/files/CsvViewer.vue";
+import PsdViewer from "@/components/files/PsdViewer.vue";
 import { VueReader } from "vue-reader";
 import { computed, inject, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -315,6 +320,7 @@ const isCsv = computed(
     fileStore.req?.extension.toLowerCase() == ".csv" &&
     fileStore.req.size <= CSV_MAX_SIZE
 );
+const isPsd = computed(() => fileStore.req?.extension.toLowerCase() == ".psd");
 
 const isResizeEnabled = computed(() => resizePreview);
 

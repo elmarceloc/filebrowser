@@ -12,8 +12,10 @@ import (
 	"github.com/disintegration/imaging"
 	"github.com/dsoprea/go-exif/v3"
 	"github.com/marusama/semaphore/v2"
+	"strings"
 
 	exifcommon "github.com/dsoprea/go-exif/v3/common"
+	_ "github.com/oov/psd"
 )
 
 // ErrUnsupportedFormat means the given image format is not supported.
@@ -47,6 +49,7 @@ png
 gif
 tiff
 bmp
+psd
 )
 */
 type Format int
@@ -63,6 +66,8 @@ func (x Format) toImaging() imaging.Format {
 		return imaging.TIFF
 	case FormatBmp:
 		return imaging.BMP
+	case FormatPsd:
+		return imaging.PNG
 	default:
 		return imaging.JPEG
 	}
@@ -99,6 +104,10 @@ fill
 type ResizeMode int
 
 func (s *Service) FormatFromExtension(ext string) (Format, error) {
+	if strings.EqualFold(ext, ".psd") {
+		return FormatPsd, nil
+	}
+
 	format, err := imaging.FormatFromExtension(ext)
 	if err != nil {
 		return -1, ErrUnsupportedFormat

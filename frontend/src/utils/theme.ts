@@ -3,25 +3,29 @@ import "ace-builds";
 import { themesByName } from "ace-builds/src-noconflict/ext-themelist";
 
 export const getTheme = (): UserTheme => {
+  const savedTheme = localStorage.getItem("theme") as UserTheme;
+  if (savedTheme) {
+    return savedTheme;
+  }
   return (document.documentElement.className as UserTheme) || theme;
 };
 
 export const setTheme = (theme: UserTheme) => {
   const html = document.documentElement;
   if (!theme) {
-    html.className = getMediaPreference();
+    const preference = getMediaPreference();
+    html.className = preference;
+    localStorage.setItem("theme", preference);
   } else {
     html.className = theme;
+    localStorage.setItem("theme", theme);
   }
 };
 
 export const toggleTheme = (): void => {
   const activeTheme = getTheme();
-  if (activeTheme === "light") {
-    setTheme("dark");
-  } else {
-    setTheme("light");
-  }
+  const newTheme = activeTheme === "light" ? "dark" : "light";
+  setTheme(newTheme);
 };
 
 export const getMediaPreference = (): UserTheme => {

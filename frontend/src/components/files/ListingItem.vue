@@ -27,7 +27,29 @@
         v-if="!readOnly && type === 'image' && isThumbsEnabled"
         v-lazy="thumbnailUrl"
       />
-      <i v-else class="material-icons"></i>
+      <template v-else>
+        <iconify-icon
+          v-if="isDir"
+          icon="vscode-icons:default-folder"
+          width="32"
+          height="32"
+          class="folder-icon"
+        ></iconify-icon>
+        <iconify-icon
+          v-else-if="getExtensionIcon(name)"
+          :icon="getExtensionIcon(name)"
+          width="96"
+          height="96"
+        ></iconify-icon>
+        <template v-else>
+          <i v-if="type === 'video'" class="material-icons video-icon">video_library</i>
+          <i v-else-if="type === 'audio'" class="material-icons audio-icon">audiotrack</i>
+          <i v-else-if="type === 'pdf'" class="material-icons pdf-icon">picture_as_pdf</i>
+          <i v-else-if="type === 'image'" class="material-icons image-icon">image</i>
+          <i v-else-if="['text', 'textImmutable'].includes(type)" class="material-icons text-icon">description</i>
+          <i v-else class="material-icons file-icon">insert_drive_file</i>
+        </template>
+      </template>
     </div>
 
     <div>
@@ -55,6 +77,7 @@ import { files as api } from "@/api";
 import * as upload from "@/utils/upload";
 import { computed, inject, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 const touches = ref<number>(0);
 
@@ -120,6 +143,66 @@ const isThumbsEnabled = computed(() => {
 
 const humanSize = () => {
   return props.type == "invalid_link" ? "invalid link" : filesize(props.size);
+};
+
+const getExtension = (filename: string) => {
+  if (filename.startsWith(".")) {
+    return "";
+  }
+  return filename.split(".").pop() || "";
+};
+
+const extensionIcons: Record<string, string> = {
+  json: "vscode-icons:file-type-json",
+  go: "vscode-icons:file-type-go",
+  js: "vscode-icons:file-type-js-official",
+  ts: "vscode-icons:file-type-typescript-official",
+  py: "vscode-icons:file-type-python",
+  html: "vscode-icons:file-type-html",
+  css: "vscode-icons:file-type-css",
+  pdf: "vscode-icons:file-type-pdf2",
+  zip: "vscode-icons:file-type-zip",
+  rar: "vscode-icons:file-type-zip",
+  "7z": "vscode-icons:file-type-zip",
+  png: "vscode-icons:file-type-image",
+  jpg: "vscode-icons:file-type-image",
+  jpeg: "vscode-icons:file-type-image",
+  gif: "vscode-icons:file-type-image",
+  svg: "vscode-icons:file-type-svg",
+  mp4: "vscode-icons:file-type-video",
+  mkv: "vscode-icons:file-type-video",
+  mp3: "vscode-icons:file-type-audio",
+  wav: "vscode-icons:file-type-audio",
+  md: "vscode-icons:file-type-markdown",
+  php: "vscode-icons:file-type-php",
+  cpp: "vscode-icons:file-type-cpp",
+  c: "vscode-icons:file-type-c",
+  txt: "vscode-icons:file-type-text",
+  sh: "vscode-icons:file-type-shell",
+  yml: "vscode-icons:file-type-yaml",
+  yaml: "vscode-icons:file-type-yaml",
+  dockerfile: "vscode-icons:file-type-docker2",
+  ai: "vscode-icons:file-type-ai",
+  psd: "vscode-icons:file-type-photoshop",
+  xls: "vscode-icons:file-type-excel",
+  xlsx: "vscode-icons:file-type-excel",
+  doc: "vscode-icons:file-type-word",
+  docx: "vscode-icons:file-type-word",
+  ppt: "vscode-icons:file-type-powerpoint",
+  pptx: "vscode-icons:file-type-powerpoint",
+  vue: "vscode-icons:file-type-vue",
+  sass: "vscode-icons:file-type-sass",
+  scss: "vscode-icons:file-type-scss",
+  less: "vscode-icons:file-type-less",
+  sql: "vscode-icons:file-type-sql",
+  db: "vscode-icons:file-type-sql",
+  exe: "vscode-icons:file-type-binary",
+  dll: "vscode-icons:file-type-binary",
+};
+
+const getExtensionIcon = (filename: string) => {
+  const ext = getExtension(filename).toLowerCase();
+  return extensionIcons[ext] || null;
 };
 
 const humanTime = () => {
@@ -328,13 +411,6 @@ const open = () => {
   router.push({ path: props.url });
 };
 
-const getExtension = (fileName: string): string => {
-  const lastDotIndex = fileName.lastIndexOf(".");
-  if (lastDotIndex === -1) {
-    return fileName;
-  }
-  return fileName.substring(lastDotIndex);
-};
 
 // Long-press helper functions
 const startLongPress = (clientX: number, clientY: number) => {

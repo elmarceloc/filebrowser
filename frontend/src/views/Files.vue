@@ -6,18 +6,20 @@
       showLogo
     />
 
-    <breadcrumbs base="/files" />
-    <errors v-if="error" :errorCode="error.status" />
-    <component v-else-if="currentView" :is="currentView"></component>
-    <div v-else>
-      <h2 class="message delayed">
-        <div class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-        <span>{{ t("files.loading") }}</span>
-      </h2>
+    <div class="content-island">
+      <breadcrumbs base="/files" />
+      <errors v-if="error" :errorCode="error.status" />
+      <component v-else-if="currentView" :is="currentView"></component>
+      <div v-else>
+        <h2 class="message delayed">
+          <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+          <span>{{ t("files.loading") }}</span>
+        </h2>
+      </div>
     </div>
   </div>
 </template>

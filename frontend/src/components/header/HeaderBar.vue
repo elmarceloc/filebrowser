@@ -1,36 +1,14 @@
 <template>
   <header>
-    <img v-if="showLogo" :src="logoURL" />
-    <Action
-      v-if="showMenu"
-      class="menu-button"
-      icon="menu"
-      :label="t('buttons.toggleSidebar')"
-      @action="layoutStore.showHover('sidebar')"
-    />
-
-    <slot />
-
-    <div
-      id="dropdown"
-      :class="{ active: layoutStore.currentPromptName === 'more' }"
-    >
-      <slot name="actions" />
+    <div class="logo-container">
+      <img v-if="showLogo" :src="logoURL" />
+      <span v-if="showLogo" class="logo-text">Drive</span>
     </div>
 
-    <Action
-      v-if="ifActionsSlot"
-      id="more"
-      icon="more_vert"
-      :label="t('buttons.more')"
-      @action="layoutStore.showHover('more')"
-    />
-
-    <div
-      class="overlay"
-      v-show="layoutStore.currentPromptName == 'more'"
-      @click="layoutStore.closeHovers"
-    />
+    <slot />
+    <div id="dropdown">
+      <slot name="actions" />
+    </div>
   </header>
 </template>
 

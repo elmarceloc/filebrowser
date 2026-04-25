@@ -4,7 +4,7 @@
     ref="contextMenu"
     v-show="show"
     :style="{
-      top: `${props.pos.y}px`,
+      top: `${top}px`,
       left: `${left}px`,
     }"
   >
@@ -23,6 +23,13 @@ const left = computed(() => {
   return Math.min(
     props.pos.x,
     window.innerWidth - (contextMenu.value?.clientWidth ?? 0)
+  );
+});
+
+const top = computed(() => {
+  return Math.min(
+    props.pos.y,
+    window.innerHeight - (contextMenu.value?.clientHeight ?? 0)
   );
 });
 

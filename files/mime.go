@@ -375,7 +375,7 @@ var types = map[string]string{
 	".pre":       "application/x-freelance",
 	".prt":       "application/pro_eng",
 	".ps":        "application/postscript",
-	".psd":       "application/octet-stream",
+	".psd":       "image/vnd.adobe.photoshop",
 	".pvu":       "paleovu/x-pv",
 	".pwz":       "application/vndms-powerpoint",
 	".py":        "text/x-scriptphyton",

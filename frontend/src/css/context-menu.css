@@ -1,21 +1,47 @@
 .context-menu {
-  position: absolute;
+  position: fixed;
   background: var(--surfacePrimary);
   min-width: 180px;
-  max-width: 220px;
-  border: 1px solid var(--borderSecondary);
-  box-shadow: 0 2px 4px var(--borderPrimary);
-  z-index: 999;
+  max-width: 260px;
+  border-radius: 8px;
+  border: 1px solid var(--divider);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 99999;
+  padding: 8px 0;
+  overflow: hidden;
 }
 
 .context-menu .action {
-  display: block;
-  width: 100%;
-  border-radius: 0;
-  display: flex;
+  display: flex !important;
   align-items: center;
+  width: 100% !important;
+  height: 40px !important;
+  padding: 0 16px !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  justify-content: flex-start !important;
+}
+
+.context-menu .action:hover {
+  background: var(--hover) !important;
+}
+
+.context-menu .action i {
+  font-size: 18px !important;
+  width: 24px;
+  text-align: center;
+  color: var(--textSecondary) !important;
+}
+
+.context-menu .action span.menu-label {
+  display: block !important;
+  margin-left: 12px;
+  font-size: 14px;
+  color: var(--textPrimary);
 }
 
 .context-menu .action .counter {
-  left: 1.75em;
+  position: static !important;
+  margin-left: auto;
 }

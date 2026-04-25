@@ -1,8 +1,9 @@
 body {
-  font-family: "Roboto", sans-serif;
-  padding-top: 4em;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
+  padding-top: var(--header-height);
   background: var(--background);
   color: var(--textSecondary);
+  margin: 0;
 }
 
 * {
@@ -52,10 +53,14 @@ i.spin {
 }
 
 nav {
-  width: 16em;
+  width: var(--sidebar-width);
   position: fixed;
-  top: 4em;
+  top: var(--header-height);
   left: 0;
+  bottom: 0;
+  background: var(--background);
+  padding: 8px;
+  z-index: 100;
 }
 
 html[dir="rtl"] nav {
@@ -87,25 +92,32 @@ nav .action > * {
 }
 
 main {
-  min-height: 1em;
-  margin: 0 1em 1em auto;
-  width: calc(100% - 19em);
+  margin-left: var(--sidebar-width);
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
+}
+
+.content-island {
+  margin: 0 16px 16px 16px;
+  background: var(--surfacePrimary);
+  border-radius: var(--border-radius-medium);
+  min-height: calc(100vh - var(--header-height) - 16px);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .breadcrumbs {
-  height: 3em;
-  background: var(--background);
+  height: 48px;
+  background: var(--surfacePrimary);
   border-bottom: 1px solid var(--divider);
-  position: sticky;
-  z-index: 1000;
-  top: 4em;
-}
-
-.breadcrumbs span,
-.breadcrumbs {
+  padding: 0 16px;
   display: flex;
   align-items: center;
   color: var(--textPrimary);
+  flex-shrink: 0;
 }
 
 .breadcrumbs a {
